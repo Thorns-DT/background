@@ -1,12 +1,5 @@
 <template>
   <div>
-    <div style="margin-bottom: 30px">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-
     <div style="margin: 10px 0">
       <el-button @click="userAdd" type="primary">新增 <i class="el-icon-circle-plus-outline"></i></el-button>
       <el-button type="danger">批量删除 <i class="el-icon-remove-outline"></i></el-button>
@@ -15,12 +8,8 @@
         <el-button type="primary" class="ml-5">导入 <i class="el-icon-bottom"></i></el-button>
       </el-upload>
 
-      
-
-
       <el-button type="primary" @click="exp" class="ml-5">导出 <i class="el-icon-top"></i></el-button>
     </div>
-
     <div style="margin: 10px 0">
       <el-input style="width: 200px" placeholder="请输入名称" suffix-icon="el-icon-search" v-model="username"></el-input>
       <el-input style="width: 200px" placeholder="请输入邮箱" suffix-icon="el-icon-message" class="ml-5" v-model="email"></el-input>
@@ -167,9 +156,10 @@ export default {
           address: this.address,
         }
       }).then(res => {
-        console.log(res)
-        this.tableData = res.records
-        this.total = res.total
+
+        console.log(res.data)
+        this.tableData = res.data.records
+        this.total = res.data.total
 
       })
     },
@@ -181,7 +171,7 @@ export default {
     save(){
 
       request.post("/user/save",this.form).then(res=>{
-        if(res){
+        if(res.data){
           this.dialogFormVisible = false
           this.$message.success("保存成功")
           this.load()
@@ -223,7 +213,7 @@ export default {
     deleteBatch(){
       let ids = this.multipleSelection.map(v => v.id)
       request.delete("/user/deleteBatch",ids).then(res=>{
-        if(res){
+        if(res.data){
           this.dialogFormVisible = false
           this.$message.success("删除成功")
           this.load()

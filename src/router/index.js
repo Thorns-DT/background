@@ -12,6 +12,9 @@ const routes = [
     children: [
       { path: 'home', name: '首页', component: () => import('../views/Home.vue')},
       { path: 'user', name: '用户管理', component: () => import('../views/User.vue')},
+      { path: 'file', name: '文件管理', component: () => import('../views/File.vue')},
+      { path: 'person', name: '个人主页', component: () => import('../views/Person.vue')},
+
     ]
   },
   {
@@ -23,7 +26,13 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue')
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('../views/Register.vue')
   }
+
 ]
 
 const router = new VueRouter({
